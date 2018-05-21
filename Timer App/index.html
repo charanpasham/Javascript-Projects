@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>Timer</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<style>
+	#days{
+		color:purple;
+	}
+	#hours{
+		color:green;
+	}
+	#minutes{
+		color:magenta;
+	}
+	#seconds{
+		color:orange;
+	}
+</style>
+	
+</head>
+<body>
+  <div class='row'>
+	  <div class='col-sm-12'>
+		<div style=' margin:auto 20px; text-align:center; font-size:50px;' id ="timevalue"></div>
+	  </div>
+  </div>
+
+     <input type="datetime-local" id = "datetime" >
+     <button id ="set" onclick ="execute();" class='btn btn-success'>Set</button>                                                             
+    <button id="reset" onclick="Reset();" class='btn btn-danger'>Reset</button>                                                                  
+                                                                      
+	<div id = 'expired' ></div>
+                       
+                       
+                       
+ 
+   <script>
+     
+     function Reset(){
+       clearInterval(a);
+       document.getElementById("timevalue").innerHTML = "";
+       document.getElementById("expired").innerHTML = "";
+     }
+   
+		function execute(){
+     
+		// document.getElementById("demo").innerHTML = "Paragraph changed!";
+       
+
+     this.a =  setInterval(function(){ 
+            var endDatetime =  document.getElementById("datetime").value;
+		var start= Date.now(); // Present Time in milliseconds
+		var end = new Date(endDatetime); // Insert the timer data and time.
+	    var difference = end-start; //Get the difference in milliseconds.
+        if(difference< 1){
+        	document.getElementById("expired").innerHTML = 'Timer Expired!';
+        	clearInterval(this.a);
+        }
+
+	    var days = Math.floor((difference/ (1000*60*60*24))); 
+	    var hours =   Math.floor((difference%(1000*60*60*24))/(1000*60*60));
+	    var minutes = Math.floor((difference%(1000*60*60))/(1000*60));
+	    var seconds = Math.floor((difference%(1000*60))/(1000));
+		document.getElementById("timevalue").innerHTML = '<span id="days"> '+days+' Days</span><span id="hours"> '+hours+' Hours</span><span id="minutes"> '+minutes+' Minutes<span><span id="seconds"> '+seconds+ ' Seconds</span>';
+      },1000);
+          
+          
+    //              clearInterval(a);
+    //    document.getElementById("timevalue").innerHTML = "";
+    //    document.getElementById("expired").innerHTML = "";
+		
+	}
+	</script>
+</body>
+</html>
